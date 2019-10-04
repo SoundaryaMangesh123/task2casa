@@ -1,0 +1,64 @@
+import math
+MAXN=1000000 # maximum number of values
+
+spf = [0]*MAXN
+# could ouput 1222334 in 4 seconds
+#upto 9999 <1 second
+# works upto 10 power 7
+
+#  using Sieve of Eratosthenes method to first store all the prime factor sof each number and later returns it
+# Time Complexity is : O(nloglogn)
+
+def sieve_of_eratosthenes():
+    spf[1] = 1
+    for i in range(2, MAXN):
+        # marking smallest prime factor as itself
+
+        spf[i] = i
+
+
+    # for every even number , 2 the smallest prime factor
+    for i in range(4, MAXN, 2):
+        spf[i] = 2
+    # for every other number mark all its multiples as i from the square of the number to max length of the array
+    for i in range(3, math.ceil(math.sqrt(MAXN))):
+
+        # checking if i is prime
+        if (spf[i] == i):
+
+
+            for j in range(i * i, MAXN, i):
+
+                if (spf[j] == j):
+                    spf[j] = i
+
+                # This function returns O(log n) function returning prime
+
+
+
+def getFactor(x):
+    output_list = list()
+    while (x != 1):
+        output_list.append(spf[x])
+        #divides the number until 1
+        x = int(x / spf[x])
+
+    return output_list
+
+
+# calling the function seive to fetch the list of smalllest prime  factors
+sieve_of_eratosthenes()
+print("enter input")
+x1=9999
+
+
+print("prime factorization for", x1, ": ",
+      end="")
+
+# calling getFactorization function
+output = getFactor(x1)
+
+for i in range(len(output)):
+    print(output[i], end=" ")
+
+# could ouput 1222334 in 4 seconds
